@@ -48,5 +48,6 @@ artifacts {
 dependencies {
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    compileOnly 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation "androidx.paging:paging-runtime:2.1.0"
 }
