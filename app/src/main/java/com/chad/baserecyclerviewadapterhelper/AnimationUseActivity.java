@@ -13,6 +13,7 @@ import com.chad.baserecyclerviewadapterhelper.adapter.AnimationAdapter;
 import com.chad.baserecyclerviewadapterhelper.animation.CustomAnimation;
 import com.chad.baserecyclerviewadapterhelper.entity.Status;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.IBaseViewHolderAdapter;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.kyleduo.switchbutton.SwitchButton;
 
@@ -56,7 +57,7 @@ public class AnimationUseActivity extends Activity {
         mAnimationAdapter.setNotDoAnimationCount(mFirstPageItemCount);
         mAnimationAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(IBaseViewHolderAdapter adapter, View view, int position) {
                 String content = null;
                 Status status = (Status) adapter.getItem(position);
                 switch (view.getId()) {

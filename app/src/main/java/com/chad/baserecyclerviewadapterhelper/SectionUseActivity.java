@@ -12,6 +12,7 @@ import com.chad.baserecyclerviewadapterhelper.data.DataServer;
 import com.chad.baserecyclerviewadapterhelper.decoration.GridSectionAverageGapItemDecoration;
 import com.chad.baserecyclerviewadapterhelper.entity.MySection;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.IBaseViewHolderAdapter;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class SectionUseActivity extends BaseActivity {
 
         sectionAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemClick(IBaseViewHolderAdapter adapter, View view, int position) {
                 MySection mySection = mData.get(position);
                 if (mySection.isHeader)
                     Toast.makeText(SectionUseActivity.this, mySection.header, Toast.LENGTH_LONG).show();
@@ -46,7 +47,7 @@ public class SectionUseActivity extends BaseActivity {
         });
         sectionAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(IBaseViewHolderAdapter adapter, View view, int position) {
                 Toast.makeText(SectionUseActivity.this, "onItemChildClick" + position, Toast.LENGTH_LONG).show();
             }
         });

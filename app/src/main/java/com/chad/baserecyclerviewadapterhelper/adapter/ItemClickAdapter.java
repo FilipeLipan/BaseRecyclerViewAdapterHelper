@@ -11,6 +11,7 @@ import com.chad.baserecyclerviewadapterhelper.util.Utils;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.IBaseViewHolderAdapter;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
@@ -65,12 +66,12 @@ public class ItemClickAdapter extends BaseMultiItemQuickAdapter<ClickEntity, Bas
     }
 
     @Override
-    public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+    public void onItemChildClick(IBaseViewHolderAdapter adapter, View view, int position) {
         Toast.makeText(Utils.getContext(), "childView click", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+    public void onItemClick(IBaseViewHolderAdapter adapter, View view, int position) {
         Logger.d("嵌套RecycleView item 收到: " + "点击了第 " + position + " 一次");
         Toast.makeText(Utils.getContext(), "嵌套RecycleView item 收到: " + "点击了第 " + position + " 一次", Toast.LENGTH_SHORT).show();
     }

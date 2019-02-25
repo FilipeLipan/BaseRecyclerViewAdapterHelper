@@ -11,6 +11,7 @@ import com.chad.baserecyclerviewadapterhelper.base.BaseActivity;
 import com.chad.baserecyclerviewadapterhelper.data.DataServer;
 import com.chad.baserecyclerviewadapterhelper.entity.SectionMultipleItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.IBaseViewHolderAdapter;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class SectionMultipleItemUseActivity extends BaseActivity {
         SectionMultipleItemAdapter sectionAdapter = new SectionMultipleItemAdapter(R.layout.def_section_head, mData);
         sectionAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(IBaseViewHolderAdapter adapter, View view, int position) {
                 SectionMultipleItem item = (SectionMultipleItem) adapter.getData().get(position);
                 switch (view.getId()) {
                     case R.id.card_view:

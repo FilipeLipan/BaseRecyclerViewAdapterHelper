@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.chad.baserecyclerviewadapterhelper.adapter.HomeAdapter;
 import com.chad.baserecyclerviewadapterhelper.entity.HomeItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.IBaseViewHolderAdapter;
 
 import java.util.ArrayList;
 
@@ -46,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
         homeAdapter.addHeaderView(top);
         homeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemClick(IBaseViewHolderAdapter adapter, View view, int position) {
                 Intent intent = new Intent(HomeActivity.this, ACTIVITY[position]);
                 startActivity(intent);
             }

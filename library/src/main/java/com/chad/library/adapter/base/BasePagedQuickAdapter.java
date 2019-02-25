@@ -65,7 +65,7 @@ import java.util.List;
 /**
  * https://github.com/CymChad/BaseRecyclerViewAdapterHelper
  */
-public abstract class BasePagedQuickAdapter<T, K extends BaseViewHolder<T>> extends PagedListAdapter<T, K> implements IBaseViewHolderAdapter {
+public abstract class BasePagedQuickAdapter<T, K extends BaseViewHolder> extends PagedListAdapter<T, K> implements IBaseViewHolderAdapter {
 
     //load more
     private boolean mNextLoadEnable = false;
@@ -181,6 +181,10 @@ public abstract class BasePagedQuickAdapter<T, K extends BaseViewHolder<T>> exte
         if (getRecyclerView() == null) {
             setRecyclerView(recyclerView);
         }
+    }
+
+    public void setNewData(@Nullable List data){
+        //no use
     }
 
     /**
@@ -922,11 +926,11 @@ public abstract class BasePagedQuickAdapter<T, K extends BaseViewHolder<T>> exte
         K k;
         // 泛型擦除会导致z为null
         if (z == null) {
-            k = (K) new BaseViewHolder<T>(view);
+            k = (K) new BaseViewHolder(view);
         } else {
             k = createGenericKInstance(z, view);
         }
-        return k != null ? k : (K) new BaseViewHolder<T>(view);
+        return k != null ? k : (K) new BaseViewHolder(view);
     }
 
     /**

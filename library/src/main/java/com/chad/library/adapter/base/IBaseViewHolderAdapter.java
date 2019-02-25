@@ -2,7 +2,9 @@ package com.chad.library.adapter.base;
 
 import java.util.List;
 
-public interface IBaseViewHolderAdapter<T> {
+import androidx.annotation.Nullable;
+
+public interface IBaseViewHolderAdapter {
 
 
     public int getHeaderLayoutCount();
@@ -11,5 +13,9 @@ public interface IBaseViewHolderAdapter<T> {
 
     public BaseQuickAdapter.OnItemChildLongClickListener getOnItemChildLongClickListener();
 
-    public List<T> getData();
+    public List getData();
+
+    public Object getItem(int position);
+
+    public void setNewData(@Nullable List data);
 }

@@ -63,7 +63,7 @@ import java.util.List;
 /**
  * https://github.com/CymChad/BaseRecyclerViewAdapterHelper
  */
-public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends RecyclerView.Adapter<K> implements IBaseViewHolderAdapter<T> {
+public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends RecyclerView.Adapter<K> implements IBaseViewHolderAdapter {
 
     //load more
     private boolean mNextLoadEnable = false;
@@ -482,7 +482,8 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
      *
      * @param data
      */
-    public void setNewData(@Nullable List<T> data) {
+    @Override
+    public void setNewData(@Nullable List data) {
         this.mData = data == null ? new ArrayList<T>() : data;
         if (mRequestLoadMoreListener != null) {
             mNextLoadEnable = true;
