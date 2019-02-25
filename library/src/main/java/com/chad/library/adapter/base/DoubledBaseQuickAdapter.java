@@ -102,7 +102,6 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
     public static final int SLIDEIN_RIGHT = 0x00000005;
     private OnItemClickListener mOnItemClickListener;
     private OnItemLongClickListener mOnItemLongClickListener;
-    private OnItemChildClickListener mOnItemChildClickListener;
     private OnItemChildLongClickListener mOnItemChildLongClickListener;
 
     @IntDef({ALPHAIN, SCALEIN, SLIDEIN_BOTTOM, SLIDEIN_LEFT, SLIDEIN_RIGHT})
@@ -131,7 +130,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
     protected Context mContext;
     protected int mLayoutResId;
     protected LayoutInflater mLayoutInflater;
-    protected List<T> mData;
+//    protected List<T> mData;
     public static final int HEADER_VIEW = 0x00000111;
     public static final int LOADING_VIEW = 0x00000222;
     public static final int FOOTER_VIEW = 0x00000333;
@@ -199,17 +198,14 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
     }
 
     /**
-     * check if full page after {@link #setNewData(List)}, if full, it will enable load more again.
      * <p>
      * 不是配置项！！
      * <p>
-     * 这个方法是用来检查是否满一屏的，所以只推荐在 {@link #setNewData(List)} 之后使用
      * 原理很简单，先关闭 load more，检查完了再决定是否开启
      * <p>
      * 不是配置项！！
      *
      * @param recyclerView your recyclerView
-     * @see #setNewData(List)
      */
     public void disableLoadMoreIfNotFullPage(RecyclerView recyclerView) {
         setEnableLoadMore(false);
@@ -337,7 +333,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
         if (!mNextLoadEnable && mLoadMoreView.isLoadEndMoreGone()) {
             return 0;
         }
-        if (mData.size() == 0) {
+        if (super.getItemCount() == 0) {
             return 0;
         }
         return 1;
@@ -349,7 +345,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
      * @return
      */
     public int getLoadMoreViewPosition() {
-        return getHeaderLayoutCount() + mData.size() + getFooterLayoutCount();
+        return getHeaderLayoutCount() + super.getItemCount() + getFooterLayoutCount();
     }
 
     /**
@@ -470,7 +466,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
      */
     public DoubledBaseQuickAdapter(@LayoutRes int layoutResId, @Nullable List<T> data, @NonNull DiffUtil.ItemCallback<T> diffCallback) {
         super(diffCallback);
-        this.mData = data == null ? new ArrayList<T>() : data;
+//        this.mData = data == null ? new ArrayList<T>() : data;
         if (layoutResId != 0) {
             this.mLayoutResId = layoutResId;
         }
@@ -489,17 +485,17 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
      *
      * @param data
      */
-    public void setNewData(@Nullable List<T> data) {
-        this.mData = data == null ? new ArrayList<T>() : data;
-        if (mRequestLoadMoreListener != null) {
-            mNextLoadEnable = true;
-            mLoadMoreEnable = true;
-            mLoading = false;
-            mLoadMoreView.setLoadMoreStatus(DoubleLoadMoreView.STATUS_DEFAULT);
-        }
-        mLastPosition = -1;
-        notifyDataSetChanged();
-    }
+//    public void setNewData(@Nullable List<T> data) {
+//        this.mData = data == null ? new ArrayList<T>() : data;
+//        if (mRequestLoadMoreListener != null) {
+//            mNextLoadEnable = true;
+//            mLoadMoreEnable = true;
+//            mLoading = false;
+//            mLoadMoreView.setLoadMoreStatus(DoubleLoadMoreView.STATUS_DEFAULT);
+//        }
+//        mLastPosition = -1;
+//        notifyDataSetChanged();
+//    }
 
 
     /**
@@ -509,51 +505,51 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
      * @param item
      * @deprecated use {@link #addData(int, Object)} instead
      */
-    @Deprecated
-    public void add(@IntRange(from = 0) int position, @NonNull T item) {
-        addData(position, item);
-    }
+//    @Deprecated
+//    public void add(@IntRange(from = 0) int position, @NonNull T item) {
+//        addData(position, item);
+//    }
 
     /**
      * add one new data in to certain location
      *
      * @param position
      */
-    public void addData(@IntRange(from = 0) int position, @NonNull T data) {
-        mData.add(position, data);
-        notifyItemInserted(position + getHeaderLayoutCount());
-        compatibilityDataSizeChanged(1);
-    }
+//    public void addData(@IntRange(from = 0) int position, @NonNull T data) {
+//        mData.add(position, data);
+//        notifyItemInserted(position + getHeaderLayoutCount());
+//        compatibilityDataSizeChanged(1);
+//    }
 
     /**
      * add one new data
      */
-    public void addData(@NonNull T data) {
-        mData.add(data);
-        notifyItemInserted(mData.size() + getHeaderLayoutCount());
-        compatibilityDataSizeChanged(1);
-    }
+//    public void addData(@NonNull T data) {
+//        mData.add(data);
+//        notifyItemInserted(mData.size() + getHeaderLayoutCount());
+//        compatibilityDataSizeChanged(1);
+//    }
 
     /**
      * remove the item associated with the specified position of adapter
      *
      * @param position
      */
-    public void remove(@IntRange(from = 0) int position) {
-        mData.remove(position);
-        int internalPosition = position + getHeaderLayoutCount();
-        notifyItemRemoved(internalPosition);
-        compatibilityDataSizeChanged(0);
-        notifyItemRangeChanged(internalPosition, mData.size() - internalPosition);
-    }
+//    public void remove(@IntRange(from = 0) int position) {
+//        mData.remove(position);
+//        int internalPosition = position + getHeaderLayoutCount();
+//        notifyItemRemoved(internalPosition);
+//        compatibilityDataSizeChanged(0);
+//        notifyItemRangeChanged(internalPosition, mData.size() - internalPosition);
+//    }
 
     /**
      * change data
      */
-    public void setData(@IntRange(from = 0) int index, @NonNull T data) {
-        mData.set(index, data);
-        notifyItemChanged(index + getHeaderLayoutCount());
-    }
+//    public void setData(@IntRange(from = 0) int index, @NonNull T data) {
+//        mData.set(index, data);
+//        notifyItemChanged(index + getHeaderLayoutCount());
+//    }
 
     /**
      * add new data in to certain location
@@ -561,22 +557,22 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
      * @param position the insert position
      * @param newData  the new data collection
      */
-    public void addData(@IntRange(from = 0) int position, @NonNull Collection<? extends T> newData) {
-        mData.addAll(position, newData);
-        notifyItemRangeInserted(position + getHeaderLayoutCount(), newData.size());
-        compatibilityDataSizeChanged(newData.size());
-    }
+//    public void addData(@IntRange(from = 0) int position, @NonNull Collection<? extends T> newData) {
+//        mData.addAll(position, newData);
+//        notifyItemRangeInserted(position + getHeaderLayoutCount(), newData.size());
+//        compatibilityDataSizeChanged(newData.size());
+//    }
 
     /**
      * add new data to the end of mData
      *
      * @param newData the new data collection
      */
-    public void addData(@NonNull Collection<? extends T> newData) {
-        mData.addAll(newData);
-        notifyItemRangeInserted(mData.size() - newData.size() + getHeaderLayoutCount(), newData.size());
-        compatibilityDataSizeChanged(newData.size());
-    }
+//    public void addData(@NonNull Collection<? extends T> newData) {
+//        mData.addAll(newData);
+//        notifyItemRangeInserted(mData.size() - newData.size() + getHeaderLayoutCount(), newData.size());
+//        compatibilityDataSizeChanged(newData.size());
+//    }
 
     /**
      * use data to replace all item in mData. this method is different {@link #setNewData(List)},
@@ -584,14 +580,13 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
      *
      * @param data data collection
      */
-    public void replaceData(@NonNull Collection<? extends T> data) {
-        // 不是同一个引用才清空列表
-        if (data != mData) {
-            mData.clear();
-            mData.addAll(data);
-        }
-        notifyDataSetChanged();
-    }
+//    public void replaceData(@NonNull Collection<? extends T> data) {
+//        if (data != mData) {
+//            mData.clear();
+//            mData.addAll(data);
+//        }
+//        notifyDataSetChanged();
+//    }
 
     /**
      * compatible getLoadMoreViewCount and getEmptyViewCount may change
@@ -599,7 +594,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
      * @param size Need compatible data size
      */
     private void compatibilityDataSizeChanged(int size) {
-        final int dataSize = mData == null ? 0 : mData.size();
+        final int dataSize = super.getItemCount();
         if (dataSize == size) {
             notifyDataSetChanged();
         }
@@ -610,10 +605,10 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
      *
      * @return 列表数据
      */
-    @NonNull
-    public List<T> getData() {
-        return mData;
-    }
+//    @NonNull
+//    public List<T> getData() {
+//        return mData;
+//    }
 
     /**
      * Get the data item associated with the specified position in the data set.
@@ -624,8 +619,8 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
      */
     @Nullable
     public T getItem(@IntRange(from = 0) int position) {
-        if (position >= 0 && position < mData.size())
-            return mData.get(position);
+        if (position >= 0 && position < super.getItemCount())
+            return super.getItem(position);
         else
             return null;
     }
@@ -684,7 +679,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
         if (!mIsUseEmpty) {
             return 0;
         }
-        if (mData.size() != 0) {
+        if (super.getItemCount() != 0) {
             return 0;
         }
         return 1;
@@ -702,7 +697,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
                 count++;
             }
         } else {
-            count = getHeaderLayoutCount() + mData.size() + getFooterLayoutCount() + getLoadMoreViewCount();
+            count = getHeaderLayoutCount() + super.getItemCount() + getFooterLayoutCount() + getLoadMoreViewCount();
         }
         return count;
     }
@@ -735,7 +730,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
             return HEADER_VIEW;
         } else {
             int adjPosition = position - numHeaders;
-            int adapterCount = mData.size();
+            int adapterCount = super.getItemCount();
             if (adjPosition < adapterCount) {
                 return getDefItemViewType(adjPosition);
             } else {
@@ -752,7 +747,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
 
     protected int getDefItemViewType(int position) {
         if (mMultiTypeDelegate != null) {
-            return mMultiTypeDelegate.getDefItemViewType(mData, position);
+            return mMultiTypeDelegate.getDefItemViewType(super.getCurrentList(), position);
         }
         return super.getItemViewType(position);
     }
@@ -1199,6 +1194,136 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
     }
 
     /**
+     * callback method to be invoked when an item in this view has been
+     * click and held
+     *
+    }
+
+
+    /**
+     * Interface definition for a callback to be invoked when an childView in this
+     * view has been clicked and held.
+     */
+    public interface OnItemChildLongClickListener {
+        /**
+         * callback method to be invoked when an item in this view has been
+         * click and held
+         *
+         * @param view     The childView whihin the itemView that was clicked and held.
+         * @param position The position of the view int the adapter
+         * @return true if the callback consumed the long click ,false otherwise
+         */
+        boolean onItemChildLongClick(DoubledBaseQuickAdapter adapter, View view, int position);
+    }
+
+    /**
+     * Interface definition for a callback to be invoked when an item in this
+     * view has been clicked and held.
+     */
+    public interface OnItemLongClickListener {
+        /**
+         * callback method to be invoked when an item in this view has been
+         * click and held
+         *
+         * @param adapter  the adpater
+         * @param view     The view whihin the RecyclerView that was clicked and held.
+         * @param position The position of the view int the adapter
+         * @return true if the callback consumed the long click ,false otherwise
+         */
+        boolean onItemLongClick(DoubledBaseQuickAdapter adapter, View view, int position);
+    }
+
+
+    /**
+     * Interface definition for a callback to be invoked when an item in this
+     * RecyclerView itemView has been clicked.
+     */
+    public interface OnItemClickListener {
+
+        /**
+         * Callback method to be invoked when an item in this RecyclerView has
+         * been clicked.
+         *
+         * @param adapter  the adpater
+         * @param view     The itemView within the RecyclerView that was clicked (this
+         *                 will be a view provided by the adapter)
+         * @param position The position of the view in the adapter.
+         */
+        void onItemClick(DoubledBaseQuickAdapter adapter, View view, int position);
+    }
+
+    /**
+     * Register a callback to be invoked when an item in this RecyclerView has
+     * been clicked.
+     *
+     * @param listener The callback that will be invoked.
+     */
+    public void setOnItemClickListener(@Nullable OnItemClickListener listener) {
+        mOnItemClickListener = listener;
+    }
+
+    /**
+     * Register a callback to be invoked when an itemchild in View has
+     * been  clicked
+     *
+     * @param listener The callback that will run
+     */
+    /**
+     * Register a callback to be invoked when an item in this RecyclerView has
+     * been long clicked and held
+     *
+     * @param listener The callback that will run
+     */
+    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
+        mOnItemLongClickListener = listener;
+    }
+
+    /**
+     * Register a callback to be invoked when an itemchild  in this View has
+     * been long clicked and held
+     *
+     * @param listener The callback that will run
+     */
+    public void setOnItemChildLongClickListener(OnItemChildLongClickListener listener) {
+        mOnItemChildLongClickListener = listener;
+    }
+
+
+    /**
+     * @return The callback to be invoked with an item in this RecyclerView has
+     * been long clicked and held, or null id no callback as been set.
+     */
+    public final OnItemLongClickListener getOnItemLongClickListener() {
+        return mOnItemLongClickListener;
+    }
+
+    /**
+     * @return The callback to be invoked with an item in this RecyclerView has
+     * been clicked and held, or null id no callback as been set.
+     */
+    public final OnItemClickListener getOnItemClickListener() {
+        return mOnItemClickListener;
+    }
+
+    /**
+     * @return The callback to be invoked with an itemchild in this RecyclerView has
+     * been clicked, or null id no callback has been set.
+     */
+//    @Nullable
+//    public final BaseQuickAdapter.OnItemChildClickListener getOnItemChildClickListener() {
+//        return mOnItemChildClickListener;
+//    }
+
+    /**
+     * @return The callback to be invoked with an itemChild in this RecyclerView has
+     * been long clicked, or null id no callback has been set.
+     */
+    @Nullable
+    public final OnItemChildLongClickListener getOnItemChildLongClickListener() {
+        return mOnItemChildLongClickListener;
+    }
+
+    /**
      * Append footer to the rear of the mFooterLayout.
      *
      * @param footer
@@ -1349,7 +1474,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
                 return position;
             }
         } else {
-            return getHeaderLayoutCount() + mData.size();
+            return getHeaderLayoutCount() + super.getItemCount();
         }
         return -1;
     }
@@ -1361,7 +1486,6 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
 
     /**
      * bind recyclerView {@link #bindToRecyclerView(RecyclerView)} before use!
-     * Recommend you to use {@link #setEmptyView(layoutResId,viewGroup)}
      * @see #bindToRecyclerView(RecyclerView)
      *
      */
@@ -1523,8 +1647,8 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
         return mLayoutInflater.inflate(layoutResId, parent, false);
     }
 
-
     public interface RequestLoadMoreListener {
+
 
         void onLoadMoreRequested();
 
@@ -1570,13 +1694,13 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
         this.mOpenAnimationEnable = true;
         this.mCustomAnimation = animation;
     }
-
     /**
      * To open the animation when loading
      */
     public void openLoadAnimation() {
         this.mOpenAnimationEnable = true;
     }
+
     /**
      * To close the animation when loading
      */
@@ -1637,24 +1761,24 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
         return position;
     }
 
-    @SuppressWarnings("unchecked")
-    private int recursiveExpand(int position, @NonNull List list) {
-        int count = list.size();
-        int pos = position + list.size() - 1;
-        for (int i = list.size() - 1; i >= 0; i--, pos--) {
-            if (list.get(i) instanceof IExpandable) {
-                IExpandable item = (IExpandable) list.get(i);
-                if (item.isExpanded() && hasSubItems(item)) {
-                    List subList = item.getSubItems();
-                    mData.addAll(pos + 1, subList);
-                    int subItemCount = recursiveExpand(pos + 1, subList);
-                    count += subItemCount;
-                }
-            }
-        }
-        return count;
-
-    }
+//    @SuppressWarnings("unchecked")
+//    private int recursiveExpand(int position, @NonNull List list) {
+//        int count = list.size();
+//        int pos = position + list.size() - 1;
+//        for (int i = list.size() - 1; i >= 0; i--, pos--) {
+//            if (list.get(i) instanceof IExpandable) {
+//                IExpandable item = (IExpandable) list.get(i);
+//                if (item.isExpanded() && hasSubItems(item)) {
+//                    List subList = item.getSubItems();
+//                    mData.addAll(pos + 1, subList);
+//                    int subItemCount = recursiveExpand(pos + 1, subList);
+//                    count += subItemCount;
+//                }
+//            }
+//        }
+//        return count;
+//
+//    }
 
     /**
      * Expand an expandable item
@@ -1681,8 +1805,8 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
         int subItemCount = 0;
         if (!expandable.isExpanded()) {
             List list = expandable.getSubItems();
-            mData.addAll(position + 1, list);
-            subItemCount += recursiveExpand(position + 1, list);
+//            mData.addAll(position + 1, list);
+//            subItemCount += recursiveExpand(position + 1, list);
 
             expandable.setExpanded(true);
 //            subItemCount += list.size();
@@ -1724,7 +1848,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
         position -= getHeaderLayoutCount();
 
         T endItem = null;
-        if (position + 1 < this.mData.size()) {
+        if (position + 1 < super.getItemCount()) {
             endItem = getItem(position + 1);
         }
 
@@ -1740,7 +1864,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
         }
 
         int count = expand(position + getHeaderLayoutCount(), false, false);
-        for (int i = position + 1; i < this.mData.size(); i++) {
+        for (int i = position + 1; i < super.getItemCount(); i++) {
             T item = getItem(i);
 
             if (item == endItem) {
@@ -1775,7 +1899,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
 
     public void expandAll() {
 
-        for (int i = mData.size() - 1 + getHeaderLayoutCount(); i >= getHeaderLayoutCount(); i--) {
+        for (int i = super.getItemCount() - 1 + getHeaderLayoutCount(); i >= getHeaderLayoutCount(); i--) {
             expandAll(i, false, false);
         }
     }
@@ -1799,14 +1923,14 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
                     continue;
                 } else if (pos < position) {
                     pos = position + i + 1;
-                    if (pos >= mData.size()) {
+                    if (pos >= super.getItemCount()) {
                         continue;
                     }
                 }
                 if (subItem instanceof IExpandable) {
                     subItemCount += recursiveCollapse(pos);
                 }
-                mData.remove(pos);
+//                mData.remove(pos);
                 subItemCount++;
             }
         }
@@ -1863,7 +1987,7 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
     }
 
     private int getItemPosition(T item) {
-        return item != null && mData != null && !mData.isEmpty() ? mData.indexOf(item) : -1;
+        return item != null && super.getCurrentList() != null && !super.getCurrentList().isEmpty() ? super.getCurrentList().indexOf(item) : -1;
     }
 
     public boolean hasSubItems(IExpandable item) {
@@ -1895,178 +2019,177 @@ public abstract class DoubledBaseQuickAdapter<T, K extends DoubledBaseViewHolder
      * if the item's level is negative which mean do not implement this, return a negative
      * if the item is not exist in the data list, return a negative.
      */
-    public int getParentPosition(@NonNull T item) {
-        int position = getItemPosition(item);
-        if (position == -1) {
-            return -1;
-        }
-
-        // if the item is IExpandable, return a closest IExpandable item position whose level smaller than this.
-        // if it is not, return the closest IExpandable item position whose level is not negative
-        int level;
-        if (item instanceof IExpandable) {
-            level = ((IExpandable) item).getLevel();
-        } else {
-            level = Integer.MAX_VALUE;
-        }
-        if (level == 0) {
-            return position;
-        } else if (level == -1) {
-            return -1;
-        }
-
-        for (int i = position; i >= 0; i--) {
-            T temp = mData.get(i);
-            if (temp instanceof IExpandable) {
-                IExpandable expandable = (IExpandable) temp;
-                if (expandable.getLevel() >= 0 && expandable.getLevel() < level) {
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
-    /**
-     * Interface definition for a callback to be invoked when an itemchild in this
-     * view has been clicked
-     */
-    public interface OnItemChildClickListener {
-        /**
-         * callback method to be invoked when an item in this view has been
-         * click and held
-         *
-         * @param view     The view whihin the ItemView that was clicked
-         * @param position The position of the view int the adapter
-         */
-        void onItemChildClick(DoubledBaseQuickAdapter adapter, View view, int position);
-    }
-
-
-    /**
-     * Interface definition for a callback to be invoked when an childView in this
-     * view has been clicked and held.
-     */
-    public interface OnItemChildLongClickListener {
-        /**
-         * callback method to be invoked when an item in this view has been
-         * click and held
-         *
-         * @param view     The childView whihin the itemView that was clicked and held.
-         * @param position The position of the view int the adapter
-         * @return true if the callback consumed the long click ,false otherwise
-         */
-        boolean onItemChildLongClick(DoubledBaseQuickAdapter adapter, View view, int position);
-    }
-
-    /**
-     * Interface definition for a callback to be invoked when an item in this
-     * view has been clicked and held.
-     */
-    public interface OnItemLongClickListener {
-        /**
-         * callback method to be invoked when an item in this view has been
-         * click and held
-         *
-         * @param adapter  the adpater
-         * @param view     The view whihin the RecyclerView that was clicked and held.
-         * @param position The position of the view int the adapter
-         * @return true if the callback consumed the long click ,false otherwise
-         */
-        boolean onItemLongClick(DoubledBaseQuickAdapter adapter, View view, int position);
-    }
-
-
-    /**
-     * Interface definition for a callback to be invoked when an item in this
-     * RecyclerView itemView has been clicked.
-     */
-    public interface OnItemClickListener {
-
-        /**
-         * Callback method to be invoked when an item in this RecyclerView has
-         * been clicked.
-         *
-         * @param adapter  the adpater
-         * @param view     The itemView within the RecyclerView that was clicked (this
-         *                 will be a view provided by the adapter)
-         * @param position The position of the view in the adapter.
-         */
-        void onItemClick(DoubledBaseQuickAdapter adapter, View view, int position);
-    }
-
-    /**
-     * Register a callback to be invoked when an item in this RecyclerView has
-     * been clicked.
-     *
-     * @param listener The callback that will be invoked.
-     */
-    public void setOnItemClickListener(@Nullable OnItemClickListener listener) {
-        mOnItemClickListener = listener;
-    }
-
-    /**
-     * Register a callback to be invoked when an itemchild in View has
-     * been  clicked
-     *
-     * @param listener The callback that will run
-     */
-    public void setOnItemChildClickListener(OnItemChildClickListener listener) {
-        mOnItemChildClickListener = listener;
-    }
-
-    /**
-     * Register a callback to be invoked when an item in this RecyclerView has
-     * been long clicked and held
-     *
-     * @param listener The callback that will run
-     */
-    public void setOnItemLongClickListener(OnItemLongClickListener listener) {
-        mOnItemLongClickListener = listener;
-    }
-
-    /**
-     * Register a callback to be invoked when an itemchild  in this View has
-     * been long clicked and held
-     *
-     * @param listener The callback that will run
-     */
-    public void setOnItemChildLongClickListener(OnItemChildLongClickListener listener) {
-        mOnItemChildLongClickListener = listener;
-    }
-
-
-    /**
-     * @return The callback to be invoked with an item in this RecyclerView has
-     * been long clicked and held, or null id no callback as been set.
-     */
-    public final OnItemLongClickListener getOnItemLongClickListener() {
-        return mOnItemLongClickListener;
-    }
-
-    /**
-     * @return The callback to be invoked with an item in this RecyclerView has
-     * been clicked and held, or null id no callback as been set.
-     */
-    public final OnItemClickListener getOnItemClickListener() {
-        return mOnItemClickListener;
-    }
-
-    /**
-     * @return The callback to be invoked with an itemchild in this RecyclerView has
-     * been clicked, or null id no callback has been set.
-     */
-    @Nullable
-    public final OnItemChildClickListener getOnItemChildClickListener() {
-        return mOnItemChildClickListener;
-    }
-
-    /**
-     * @return The callback to be invoked with an itemChild in this RecyclerView has
-     * been long clicked, or null id no callback has been set.
-     */
-    @Nullable
-    public final OnItemChildLongClickListener getOnItemChildLongClickListener() {
-        return mOnItemChildLongClickListener;
-    }
+//    public int getParentPosition(@NonNull T item) {
+//        int position = getItemPosition(item);
+//        if (position == -1) {
+//            return -1;
+//        }
+//
+//        // if the item is IExpandable, return a closest IExpandable item position whose level smaller than this.
+//        // if it is not, return the closest IExpandable item position whose level is not negative
+//        int level;
+//        if (item instanceof IExpandable) {
+//            level = ((IExpandable) item).getLevel();
+//        } else {
+//            level = Integer.MAX_VALUE;
+//        }
+//        if (level == 0) {
+//            return position;
+//        } else if (level == -1) {
+//            return -1;
+//        }
+//
+//        for (int i = position; i >= 0; i--) {
+//            T temp = mData.get(i);
+//            if (temp instanceof IExpandable) {
+//                IExpandable expandable = (IExpandable) temp;
+//                if (expandable.getLevel() >= 0 && expandable.getLevel() < level) {
+//                    return i;
+//                }
+//            }
+//        }
+//        return -1;
+//    }
+//    /**
+//     * Interface definition for a callback to be invoked when an itemchild in this
+//     * view has been clicked
+//     */
+//    public interface OnItemChildClickListener {
+//        /**
+//         * callback method to be invoked when an item in this view has been
+//         * click and held
+//         *
+//         * @param view     The view whihin the ItemView that was clicked
+//         * @param position The position of the view int the adapter
+//         */
+//        void onItemChildClick(BaseQuickAdapter adapter, View view, int position);
+//    }
+//
+//
+//    /**
+//     * Interface definition for a callback to be invoked when an childView in this
+//     * view has been clicked and held.
+//     */
+//    public interface OnItemChildLongClickListener {
+//        /**
+//         * callback method to be invoked when an item in this view has been
+//         * click and held
+//         *
+//         * @param view     The childView whihin the itemView that was clicked and held.
+//         * @param position The position of the view int the adapter
+//         * @return true if the callback consumed the long click ,false otherwise
+//         */
+//        boolean onItemChildLongClick(BaseQuickAdapter adapter, View view, int position);
+//    }
+//
+//    /**
+//     * Interface definition for a callback to be invoked when an item in this
+//     * view has been clicked and held.
+//     */
+//    public interface OnItemLongClickListener {
+//        /**
+//         * callback method to be invoked when an item in this view has been
+//         * click and held
+//         *
+//         * @param adapter  the adpater
+//         * @param view     The view whihin the RecyclerView that was clicked and held.
+//         * @param position The position of the view int the adapter
+//         * @return true if the callback consumed the long click ,false otherwise
+//         */
+//        boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position);
+//    }
+//
+//
+//    /**
+//     * Interface definition for a callback to be invoked when an item in this
+//     * RecyclerView itemView has been clicked.
+//     */
+//    public interface OnItemClickListener {
+//
+//        /**
+//         * Callback method to be invoked when an item in this RecyclerView has
+//         * been clicked.
+//         *
+//         * @param adapter  the adpater
+//         * @param view     The itemView within the RecyclerView that was clicked (this
+//         *                 will be a view provided by the adapter)
+//         * @param position The position of the view in the adapter.
+//         */
+//        void onItemClick(BaseQuickAdapter adapter, View view, int position);
+//    }
+//
+//    /**
+//     * Register a callback to be invoked when an item in this RecyclerView has
+//     * been clicked.
+//     *
+//     * @param listener The callback that will be invoked.
+//     */
+//    public void setOnItemClickListener(@Nullable BaseQuickAdapter.OnItemClickListener listener) {
+//        mOnItemClickListener = listener;
+//    }
+//
+//    /**
+//     * Register a callback to be invoked when an itemchild in View has
+//     * been  clicked
+//     *
+//     * @param listener The callback that will run
+//     */
+//    public void setOnItemChildClickListener(BaseQuickAdapter.OnItemChildClickListener listener) {
+//        mOnItemChildClickListener = listener;
+//    }
+//
+//    /**
+//     * Register a callback to be invoked when an item in this RecyclerView has
+//     * been long clicked and held
+//     *
+//     * @param listener The callback that will run
+//     */
+//    public void setOnItemLongClickListener(BaseQuickAdapter.OnItemLongClickListener listener) {
+//        mOnItemLongClickListener = listener;
+//    }
+//
+//    /**
+//     * Register a callback to be invoked when an itemchild  in this View has
+//     * been long clicked and held
+//     *
+//     * @param listener The callback that will run
+//     */
+//    public void setOnItemChildLongClickListener(BaseQuickAdapter.OnItemChildLongClickListener listener) {
+//        mOnItemChildLongClickListener = listener;
+//    }
+//
+//
+//    /**
+//     * @return The callback to be invoked with an item in this RecyclerView has
+//     * been long clicked and held, or null id no callback as been set.
+//     */
+//    public final BaseQuickAdapter.OnItemLongClickListener getOnItemLongClickListener() {
+//        return mOnItemLongClickListener;
+//    }
+//
+//    /**
+//     * @return The callback to be invoked with an item in this RecyclerView has
+//     * been clicked and held, or null id no callback as been set.
+//     */
+//    public final BaseQuickAdapter.OnItemClickListener getOnItemClickListener() {
+//        return mOnItemClickListener;
+//    }
+//
+//    /**
+//     * @return The callback to be invoked with an itemchild in this RecyclerView has
+//     * been clicked, or null id no callback has been set.
+//     */
+//    @Nullable
+//    public final BaseQuickAdapter.OnItemChildClickListener getOnItemChildClickListener() {
+//        return mOnItemChildClickListener;
+//    }
+//
+//    /**
+//     * @return The callback to be invoked with an itemChild in this RecyclerView has
+//     * been long clicked, or null id no callback has been set.
+//     */
+//    @Nullable
+//    public final BaseQuickAdapter.OnItemChildLongClickListener getOnItemChildLongClickListener() {
+//        return mOnItemChildLongClickListener;
+//    }
 }

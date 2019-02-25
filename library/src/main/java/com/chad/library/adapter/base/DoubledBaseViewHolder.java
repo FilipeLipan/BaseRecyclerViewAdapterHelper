@@ -388,9 +388,9 @@ public class DoubledBaseViewHolder extends RecyclerView.ViewHolder {
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (adapter.getOnItemChildClickListener() != null) {
-                            adapter.getOnItemChildClickListener().onItemChildClick(adapter, v, getClickPosition());
-                        }
+//                        if (adapter.getOnItemChildClickListener() != null) {
+//                            adapter.getOnItemChildClickListener().onItemChildClick(adapter, v, getClickPosition());
+//                        }
                     }
                 });
             }
