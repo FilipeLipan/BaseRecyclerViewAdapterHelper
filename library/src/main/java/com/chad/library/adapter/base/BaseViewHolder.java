@@ -46,7 +46,7 @@ import java.util.Set;
 /**
  * https://github.com/CymChad/BaseRecyclerViewAdapterHelper
  */
-public class BaseViewHolder extends RecyclerView.ViewHolder {
+public class BaseViewHolder<T> extends RecyclerView.ViewHolder {
 
     /**
      * Views indexed with their IDs
@@ -62,7 +62,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
     private final LinkedHashSet<Integer> childClickViewIds;
 
     private final LinkedHashSet<Integer> itemChildLongClickViewIds;
-    private BaseQuickAdapter adapter;
+    private IBaseViewHolderAdapter adapter;
     /**
      * use itemView instead
      */
@@ -602,7 +602,7 @@ public class BaseViewHolder extends RecyclerView.ViewHolder {
      * @param adapter The adapter;
      * @return The BaseViewHolder for chaining.
      */
-    protected BaseViewHolder setAdapter(BaseQuickAdapter adapter) {
+    protected BaseViewHolder setAdapter(IBaseViewHolderAdapter<T> adapter) {
         this.adapter = adapter;
         return this;
     }

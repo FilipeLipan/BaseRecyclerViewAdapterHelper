@@ -63,7 +63,7 @@ import java.util.List;
 /**
  * https://github.com/CymChad/BaseRecyclerViewAdapterHelper
  */
-public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends RecyclerView.Adapter<K> {
+public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends RecyclerView.Adapter<K> implements IBaseViewHolderAdapter<T> {
 
     //load more
     private boolean mNextLoadEnable = false;
@@ -648,6 +648,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
     /**
      * if addHeaderView will be return 1, if not will be return 0
      */
+    @Override
     public int getHeaderLayoutCount() {
         if (mHeaderLayout == null || mHeaderLayout.getChildCount() == 0) {
             return 0;
@@ -1932,7 +1933,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
          * @param view     The view whihin the ItemView that was clicked
          * @param position The position of the view int the adapter
          */
-        void onItemChildClick(BaseQuickAdapter adapter, View view, int position);
+        void onItemChildClick(IBaseViewHolderAdapter adapter, View view, int position);
     }
 
 
@@ -1949,7 +1950,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
          * @param position The position of the view int the adapter
          * @return true if the callback consumed the long click ,false otherwise
          */
-        boolean onItemChildLongClick(BaseQuickAdapter adapter, View view, int position);
+        boolean onItemChildLongClick(IBaseViewHolderAdapter adapter, View view, int position);
     }
 
     /**
@@ -1966,7 +1967,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
          * @param position The position of the view int the adapter
          * @return true if the callback consumed the long click ,false otherwise
          */
-        boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position);
+        boolean onItemLongClick(IBaseViewHolderAdapter adapter, View view, int position);
     }
 
 
@@ -1985,7 +1986,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
          *                 will be a view provided by the adapter)
          * @param position The position of the view in the adapter.
          */
-        void onItemClick(BaseQuickAdapter adapter, View view, int position);
+        void onItemClick(IBaseViewHolderAdapter adapter, View view, int position);
     }
 
     /**
@@ -2050,6 +2051,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
      * been clicked, or null id no callback has been set.
      */
     @Nullable
+    @Override
     public final OnItemChildClickListener getOnItemChildClickListener() {
         return mOnItemChildClickListener;
     }
@@ -2059,6 +2061,7 @@ public abstract class BaseQuickAdapter<T, K extends BaseViewHolder> extends Recy
      * been long clicked, or null id no callback has been set.
      */
     @Nullable
+    @Override
     public final OnItemChildLongClickListener getOnItemChildLongClickListener() {
         return mOnItemChildLongClickListener;
     }
